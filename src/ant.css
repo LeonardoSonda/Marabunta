@@ -1,0 +1,34 @@
+/* Hormiga de Marabunta: camina por el borde de la pantalla y a veces se detiene a mirar al usuario */
+.ant{--aw:clamp(60px,7.5vw,92px);position:fixed;left:0;top:0;z-index:30;width:var(--aw);height:calc(var(--aw)*1.0496);margin:calc(var(--aw)*-1.0496) 0 0 calc(var(--aw)/-2);transform-origin:50% 100%;pointer-events:none;opacity:0;transition:opacity .5s;will-change:transform}
+.ant.on{opacity:1}
+.ant .side,.ant .front{position:absolute;inset:0;width:100%;height:100%;overflow:visible;transform-origin:50% 100%}
+.ant .side img{position:absolute;inset:0;width:100%;height:100%;display:block;user-select:none;-webkit-user-drag:none}
+
+/* giro: de perfil (camina) a de frente (mira al usuario) */
+.ant .side{transition:transform .28s ease-out .2s,opacity 0s .2s}
+.ant .front{transform:scaleX(.05);opacity:0;transition:transform .22s ease-in,opacity 0s .22s}
+.ant.look .side{transform:scaleX(.05);opacity:0;transition:transform .22s ease-in,opacity 0s .22s}
+.ant.look .front{transform:none;opacity:1;transition:transform .28s ease-out .2s,opacity 0s .2s}
+
+/* caminata de perfil */
+.ant .leg{transform-origin:var(--px) var(--py);animation:ant-step .46s ease-in-out infinite alternate}
+.ant .lb,.ant .ld{animation-direction:alternate-reverse}
+.ant.still .leg{animation-play-state:paused}
+.ant .body{transform-origin:50% 85%;animation:ant-bob .23s ease-in-out infinite alternate}
+@keyframes ant-step{from{transform:rotate(-11deg)}to{transform:rotate(11deg)}}
+@keyframes ant-bob{from{transform:translateY(0) rotate(-.5deg)}to{transform:translateY(-1.1%) rotate(.5deg)}}
+
+/* pose de frente */
+.ant .front :is(.head,.leaf2,.al,.ar,.wave,.eyes){transform-box:view-box}
+.ant .head{transform-origin:131px 200px;animation:ant-tilt 1.3s ease-in-out infinite alternate}
+.ant .leaf2{transform-origin:131px 150px;animation:ant-sway 1.1s ease-in-out infinite alternate}
+.ant .al{transform-origin:112px 118px;animation:ant-wig .45s ease-in-out infinite alternate}
+.ant .ar{transform-origin:150px 118px;animation:ant-wig .45s ease-in-out infinite alternate-reverse}
+.ant .wave{transform-origin:158px 198px;animation:ant-wave .32s ease-in-out infinite alternate}
+.ant .eyes{transform-origin:131px 150px;animation:ant-blink 2.6s infinite}
+@keyframes ant-tilt{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
+@keyframes ant-sway{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+@keyframes ant-wig{from{transform:rotate(-6deg)}to{transform:rotate(8deg)}}
+@keyframes ant-wave{from{transform:rotate(-18deg)}to{transform:rotate(12deg)}}
+@keyframes ant-blink{0%,90%,100%{transform:scaleY(1)}94%{transform:scaleY(.1)}}
+@media print{.ant{display:none}}
